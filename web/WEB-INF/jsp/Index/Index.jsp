@@ -30,7 +30,7 @@
         </div>
         <div class="container">
             <p>
-                <a href="<c:url value="FALTA DEFINIR"/>" class="btn btn-success align-middle"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Enviar Servicio Web</a>
+                <a href="<c:url value="Integrando.com"/>" class="btn btn-success align-middle"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Enviar Servicio Web</a>
             </p>
 
             <table class="table table-striped table-responsive table-hover table-bordered">

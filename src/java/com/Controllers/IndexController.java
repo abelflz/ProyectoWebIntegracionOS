@@ -11,10 +11,16 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import com.Model.Conexion;
+import com.Model.Cuentas;
 import com.Model.fecha;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.support.SessionStatus;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 @ControllerAdvice
 public class IndexController {
@@ -54,9 +60,24 @@ public class IndexController {
     public ModelAndView Index(
             @ModelAttribute("fecha") fecha f
     ) {
-        String sql = "update Cuentas set Monto = (select CASE WHEN sum(Monto) IS NULL THEN 0 ELSE sum(Monto) END from regsolcheque where FechaRegistro between '" + f.getFechainicio() + "' and '" + f.getFechafin() + "')";
-        jdbc.update(sql);
-        validate = "post";
-        return new ModelAndView("redirect:/index.com");
+        try {
+            String sql = "update Cuentas set Monto = (select CASE WHEN sum(Monto) IS NULL THEN 0 ELSE sum(Monto) END from regsolcheque where FechaRegistro between '" + f.getFechainicio() + "' and '" + f.getFechafin() + "')";
+            jdbc.update(sql);
+            validate = "post";
+            return new ModelAndView("redirect:/index.com");
+        } catch (Exception e) {
+            return new ModelAndView("redirect:/index.com");
+        }
+    }
+
+    @RequestMapping(value = "Integrando.com", method = RequestMethod.GET)
+    public ModelAndView Integrar(
+            @ModelAttribute("Cuentas") Cuentas c
+    ) {
+        //Seleccionar todo lo de la tabla Cuentas
+        //Guardarlo en variables
+        //pasar variables al servicio web
+        //Referencia al Servicio Web
+        return new ModelAndView("redirect/:index.com");
     }
 }

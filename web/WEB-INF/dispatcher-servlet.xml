@@ -20,7 +20,8 @@
         <property name="mappings">
             <props>     
                 <prop key="index.com">IndexController</prop>
-                           
+                <prop key="Integrando.com">IndexController</prop>
+                            
                 <prop key="ConceptosPagoIndex.com">ConceptosPagoController</prop>
                 <prop key="ConceptosPagoCreate.com">ConceptosPagoController</prop>
                 <prop key="ConceptosPagoEdit.com">ConceptosPagoController</prop>
