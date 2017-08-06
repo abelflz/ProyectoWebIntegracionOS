@@ -57,7 +57,6 @@ public class IntegrarController {
                     + "}";
             RestTemplate rest;
             HttpHeaders headers;
-            HttpStatus status;
 
             rest = new RestTemplate();
             headers = new HttpHeaders();
