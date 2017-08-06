@@ -20,7 +20,7 @@
         <property name="mappings">
             <props>     
                 <prop key="index.com">IndexController</prop>
-                <prop key="Integrando.com">IndexController</prop>
+                <prop key="Integrando.com">IntegrarController</prop>
                             
                 <prop key="ConceptosPagoIndex.com">ConceptosPagoController</prop>
                 <prop key="ConceptosPagoCreate.com">ConceptosPagoController</prop>
@@ -52,4 +52,5 @@
     <bean name="ProveedoresController" class="com.Controllers.ProveedoresController"/>
     <bean name="RegistroSolicitudChequesController" class="com.Controllers.RegistroSolicitudChequesController"/>
     <bean name="LogInController" class="com.Controllers.LogInController"/>
+    <bean name="IntegrarController" class="com.Controllers.IntegrarController"/>
 </beans>

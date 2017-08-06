@@ -29,10 +29,24 @@
             </nav>
         </div>
         <div class="container">
-            <p>
-                <a href="<c:url value="Integrando.com"/>" class="btn btn-success align-middle"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Enviar Servicio Web</a>
-            </p>
+            <a href="<c:url value = "Integrando.com"/>" class="btn btn-success">Enviar Asiento Contable Otro Controller</a>
+            <p></p>
+            <%
+                String id = request.getParameter("a");
+                if (request.getParameter("a") == null) {
 
+                } else {
+                    if (id.equals("No se pudo crear el asiento")) {
+            %>
+            <div class="alert alert-danger">
+                <%= id%>
+            </div> 
+            <%} else {%>
+            <div class="alert alert-success">
+                <%= id%>
+            </div>
+            <%}
+                }%>
             <table class="table table-striped table-responsive table-hover table-bordered">
                 <tr>
                     <th>
