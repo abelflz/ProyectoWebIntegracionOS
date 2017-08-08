@@ -125,11 +125,13 @@ public class ProveedoresController {
         }
     }
 
+    @SuppressWarnings("Convert2Lambda")
     public Proveedores selectProveedor(int id) {
         final Proveedores proveedor = new Proveedores();
         String quer = "SELECT * FROM Proveedores WHERE id='" + id + "'";
         return (Proveedores) jdbc.query(
                 quer, new ResultSetExtractor<Proveedores>() {
+            @SuppressWarnings("override")
             public Proveedores extractData(ResultSet rs) throws SQLException, DataAccessException {
                 if (rs.next()) {
                     proveedor.setNombre(rs.getString("Nombre"));

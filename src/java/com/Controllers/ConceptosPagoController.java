@@ -24,7 +24,9 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ConceptosPagoController {
 
+    @SuppressWarnings("FieldMayBeFinal")
     private ValidarConceptosPago validar;
+    @SuppressWarnings("FieldMayBeFinal")
     private JdbcTemplate jdbc;
 
     public ConceptosPagoController() {
@@ -36,7 +38,7 @@ public class ConceptosPagoController {
     @RequestMapping("ConceptosPagoIndex.com")
     public ModelAndView Index() {
         ModelAndView mav = new ModelAndView();
-        String sql = "select * from concepto_pago";
+        String sql = "select * from Concepto_Pago";
         List datos = this.jdbc.queryForList(sql);
         mav.addObject("datos", datos);
         mav.setViewName("ConceptosPago/Index");
@@ -64,7 +66,7 @@ public class ConceptosPagoController {
             mav.addObject("conceptopagos", new ConceptoPagos());
             return mav;
         } else {
-            this.jdbc.update("insert into concepto_pago(Descripcion, Estado) values (?,?)", cp.getDescripcion(), cp.getEstado());
+            this.jdbc.update("insert into Concepto_Pago(Descripcion, Estado) values (?,?)", cp.getDescripcion(), cp.getEstado());
             return new ModelAndView("redirect:/ConceptosPagoIndex.com");
         }
     }
@@ -73,7 +75,7 @@ public class ConceptosPagoController {
     public ModelAndView Delete(HttpServletRequest request) {
         int id = Integer.parseInt(request.getParameter("id"));
         try {
-            this.jdbc.update("delete from concepto_pago where Id = " + id + "");
+            this.jdbc.update("delete from Concepto_Pago where Id = " + id + "");
             return new ModelAndView("redirect:/ConceptosPagoIndex.com");
         } catch (DataIntegrityViolationException e) {
             return new ModelAndView("redirect:/ConceptosPagoIndex.com", "message", "message");
@@ -108,16 +110,18 @@ public class ConceptosPagoController {
             return mav;
         } else {
             int id = Integer.parseInt(request.getParameter("id"));
-            this.jdbc.update("update concepto_pago set Descripcion = ?, Estado = ? where id = ? ", cp.getDescripcion(), cp.getEstado(), id);
+            this.jdbc.update("update Concepto_Pago set Descripcion = ?, Estado = ? where id = ? ", cp.getDescripcion(), cp.getEstado(), id);
             return new ModelAndView("redirect:/ConceptosPagoIndex.com");
         }
     }
 
+    @SuppressWarnings("Convert2Lambda")
     public ConceptoPagos selectUsuario(int id) {
         final ConceptoPagos pago = new ConceptoPagos();
-        String quer = "SELECT * FROM concepto_pago WHERE id='" + id + "'";
+        String quer = "SELECT * FROM Concepto_Pago WHERE id='" + id + "'";
         return (ConceptoPagos) jdbc.query(
                 quer, new ResultSetExtractor<ConceptoPagos>() {
+            @SuppressWarnings("override")
             public ConceptoPagos extractData(ResultSet rs) throws SQLException, DataAccessException {
                 if (rs.next()) {
                     pago.setDescripcion(rs.getString("descripcion"));

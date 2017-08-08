@@ -26,7 +26,9 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class RegistroSolicitudChequesController {
 
+    @SuppressWarnings("FieldMayBeFinal")
     private ValidarRSC validar;
+    @SuppressWarnings("FieldMayBeFinal")
     private JdbcTemplate jdbc;
 
     public RegistroSolicitudChequesController() {
@@ -41,9 +43,9 @@ public class RegistroSolicitudChequesController {
         String sql = "select c.Id, p.Nombre, c.Monto, c.FechaRegistro, c.Estado, c.CuentaContableProveedor,\n"
                 + "c.CuentaContableRelCCBanco, cp.Descripcion as ConceptoPago \n"
                 + "from RegSolCheque c \n"
-                + "inner join proveedores p \n"
+                + "inner join Proveedores p \n"
                 + "on c.ProveedorId = p.Id\n"
-                + "inner join concepto_pago cp\n"
+                + "inner join Concepto_Pago cp\n"
                 + "on cp.Id = c.ConceptoPagoId";
         List datos = this.jdbc.queryForList(sql);
         mav.addObject("datos", datos);
@@ -82,7 +84,7 @@ public class RegistroSolicitudChequesController {
             int proveedorId = Integer.parseInt(rsc.getProveedorId());
             this.jdbc.update("INSERT INTO RegSolCheque(ProveedorId, Monto, FechaRegistro, Estado, CuentaContableProveedor, \n" +
                 "CuentaContableRelCCBanco, ConceptoPagoId) values(?, ?, ?, ?," +
-                "(SELECT CuentaContable FROM proveedores WHERE ID = '"+proveedorId+"'),?, ?)", rsc.getProveedorId(), rsc.getMonto(),
+                "(SELECT CuentaContable FROM Proveedores WHERE ID = '"+proveedorId+"'),?, ?)", rsc.getProveedorId(), rsc.getMonto(),
                 rsc.getFechaRegistro(), rsc.getEstado(), rsc.getCuentaContableRelCCBanco(), rsc.getConceptoId()
             );
             return new ModelAndView("redirect:/RegistroSolicitudChequesIndex.com");
@@ -128,14 +130,14 @@ public class RegistroSolicitudChequesController {
         } else {
             int id = Integer.parseInt(request.getParameter("id"));
             int proveedorId = Integer.parseInt(rsc.getProveedorId());
-            this.jdbc.update("update RegSolCheque set ProveedorId = ?, Monto = ?, FechaRegistro = ?, Estado = ?, CuentaContableProveedor = (SELECT CuentaContable FROM proveedores WHERE ID = "+proveedorId+"), CuentaContableRelCCBanco = ?,"
+            this.jdbc.update("update RegSolCheque set ProveedorId = ?, Monto = ?, FechaRegistro = ?, Estado = ?, CuentaContableProveedor = (SELECT CuentaContable FROM Proveedores WHERE ID = "+proveedorId+"), CuentaContableRelCCBanco = ?,"
                 + " ConceptoPagoId=? where id = ? ",
                 rsc.getProveedorId(), rsc.getMonto(), rsc.getFechaRegistro(), rsc.getEstado(), rsc.getCuentaContableRelCCBanco(), rsc.getConceptoId(), id);
             return new ModelAndView("redirect:/RegistroSolicitudChequesIndex.com");
         }
     }
 
-    //List proveedores = this.jdbc.queryForList(sql);
+    //List Proveedores = this.jdbc.queryForList(sql);
     @ModelAttribute("ListaEstados")
     public Map<String, String> listadoEstados() {
         Map<String, String> estado = new LinkedHashMap<>();
@@ -149,16 +151,16 @@ public class RegistroSolicitudChequesController {
     public Map<String, String> listadoProveedores() {
         Map<String, String> proveedor = new LinkedHashMap<>();
         try {
-            String query = "select Id, Nombre from proveedores";
+            String query = "select Id, Nombre from Proveedores";
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cheques", "root", "admin");
+            Connection con = DriverManager.getConnection("jdbc:mysql://35.202.177.191:3306/cheques", "abelflz", "alterna255");
             Statement stm = con.createStatement();
             ResultSet rs = stm.executeQuery(query);
             while (rs.next()) {
                 proveedor.put(rs.getString("Id"), rs.getString("Nombre"));
             }
         } catch (Exception e) {
-
+                //
         }
         return proveedor;
     }
@@ -169,7 +171,7 @@ public class RegistroSolicitudChequesController {
         try {
             String query = "select Id, Descripcion from Concepto_Pago where Estado = 'Activo'";
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cheques", "root", "admin");
+            Connection con = DriverManager.getConnection("jdbc:mysql://35.202.177.191:3306/cheques", "abelflz", "alterna255");
             Statement stm = con.createStatement();
             ResultSet rs = stm.executeQuery(query);
             while (rs.next()) {

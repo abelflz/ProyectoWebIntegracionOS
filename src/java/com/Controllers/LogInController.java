@@ -39,7 +39,7 @@ public class LogInController {
             String clave = l.getClave();
             String query = "SELECT count(usuario) usuario FROM Login WHERE usuario collate utf8_bin = '"+usuario+"' AND contrasena collate utf8_bin = '"+clave+"'";
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cheques", "root", "admin");
+            Connection con = DriverManager.getConnection("jdbc:mysql://35.202.177.191:3306/cheques", "abelflz", "alterna255");
             Statement stm = con.createStatement();
             ResultSet rs = stm.executeQuery(query);
             rs.next();

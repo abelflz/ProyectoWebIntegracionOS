@@ -13,12 +13,10 @@ import java.sql.Statement;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -42,7 +40,7 @@ public class IntegrarController {
             String monto;
             String query = "select * from Cuentas";
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cheques", "root", "admin");
+            Connection con = DriverManager.getConnection("jdbc:mysql://35.202.177.191:3306/cheques", "abelflz", "alterna255");
             Statement stm = con.createStatement();
             ResultSet rs = stm.executeQuery(query);
             rs.next();

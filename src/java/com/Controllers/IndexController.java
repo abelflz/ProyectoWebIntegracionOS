@@ -27,7 +27,7 @@ public class IndexController {
         fecha f = new fecha();
         ModelAndView mav = new ModelAndView();
         if (validate.equals("get")) {
-            jdbc.update("update Cuentas set Monto = (select CASE WHEN sum(Monto) IS NULL THEN 0 ELSE sum(Monto) END from regsolcheque)");
+            jdbc.update("update Cuentas set Monto = (select CASE WHEN sum(Monto) IS NULL THEN 0 ELSE sum(Monto) END from RegSolCheque)");
             String sql = "select * from Cuentas";
             List Cuentas = jdbc.queryForList(sql);
             mav.addObject("Cuentas", Cuentas);
@@ -52,10 +52,10 @@ public class IndexController {
         try {
             String sql;
             if (f.getFechainicio().equals("") || f.getFechafin().equals("")) {
-                sql = "update Cuentas set Monto = (select CASE WHEN sum(Monto) IS NULL THEN 0 ELSE sum(Monto) END from regsolcheque)";
+                sql = "update Cuentas set Monto = (select CASE WHEN sum(Monto) IS NULL THEN 0 ELSE sum(Monto) END from RegSolCheque)";
                 validate = "get";
             } else {
-                sql = "update Cuentas set Monto = (select CASE WHEN sum(Monto) IS NULL THEN 0 ELSE sum(Monto) END from regsolcheque where FechaRegistro between '" + f.getFechainicio() + "' and '" + f.getFechafin() + "')";
+                sql = "update Cuentas set Monto = (select CASE WHEN sum(Monto) IS NULL THEN 0 ELSE sum(Monto) END from RegSolCheque where FechaRegistro between '" + f.getFechainicio() + "' and '" + f.getFechafin() + "')";
                 validate = "post";
             }
 

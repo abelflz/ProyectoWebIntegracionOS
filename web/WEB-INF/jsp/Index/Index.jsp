@@ -29,7 +29,7 @@
             </nav>
         </div>
         <div class="container">
-            <a href="<c:url value = "Integrando.com"/>" class="btn btn-success">Enviar Asiento Contable Otro Controller</a>
+            <a href="<c:url value = "Integrando.com"/>" class="btn btn-success">Enviar Asiento Contable</a>
             <p></p>
             <%
                 String id = request.getParameter("a");
